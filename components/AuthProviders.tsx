@@ -19,20 +19,22 @@ const AuthProviders = () => {
 
   useEffect(() => {
     const fetchProviders = async () => {
-      const providers = await getProviders();
-      setProviders(providers);
+      const res = await getProviders();
+      setProviders(res);
     };
-
-    console.log(providers);
 
     fetchProviders();
   }, []);
+
+  console.log(providers);
 
   if (providers) {
     return (
       <div>
         {Object.values(providers).map((provider: Provider, i) => (
-          <button key={i}>{provider.id}</button>
+          <button key={i} onClick={() => signIn(provider?.id)}>
+            {provider.id}
+          </button>
         ))}
       </div>
     );
